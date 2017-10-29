@@ -14,7 +14,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ''
+      username: '',
+      logged: false
     }
   }
 
@@ -22,11 +23,13 @@ export default class App extends React.Component {
       this.setState({ username: e.target.value });
   }
 
-  handleLoging(e) {
-    e.preventDefault();
+  handleLoging = (e) => {
+    if (this.state.username) {
+      this.setState({logged: true});
+    }
   }
 
-  render() {
+  notLoggedin() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logo}>
@@ -40,15 +43,28 @@ export default class App extends React.Component {
             <TextInput
                 placeholder="username"
               style={stylesForm.input}
-              onChange={ this.handleChange.bind(this) } 
+              onChangeText={(text) => this.setState({username: text})}
+              value={this.state.username}
             />
-            <TouchableOpacity style={stylesForm.buttonContainer}>
-              <Text style={stylesForm.buttonText} onClick={this.handleLoging.bind(this)}>Login</Text>
+            <TouchableOpacity style={stylesForm.buttonContainer}
+              onPress={this.handleLoging}
+            >
+              <Text style={stylesForm.buttonText} >Login</Text>
             </TouchableOpacity>  
           </View>
         </View>
       </KeyboardAvoidingView>
     );
+  }
+
+  render() {
+    if (this.state.logged === false) {
+      return this.notLoggedin();
+    }else {
+      return (
+        <Text>Hello Worlds</Text>
+      )
+    }
   }
 }
 
