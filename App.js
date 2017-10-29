@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, 
-         Text, 
+         Text,
+         TextInput,
          View, 
          Image,
+         TouchableOpacity,
          KeyboardAvoidingView } 
 from 'react-native';
 import LogingForm from './components/LoginForm';
@@ -14,13 +16,14 @@ export default class App extends React.Component {
     this.state = {
       username: ''
     }
-
-    this.loginHandler = this.loginHandler.bind(this);
   }
 
-  loginHandler(e) {
-    // console.log(e);
-    // this.setState({ username: e });
+  handleChange(e) {
+      this.setState({ username: e.target.value });
+  }
+
+  handleLoging(e) {
+    e.preventDefault();
   }
 
   render() {
@@ -30,10 +33,19 @@ export default class App extends React.Component {
           <Image 
             source={require('./img/box.png')}
           />
-          <Text>The Username is: {this.state.username}</Text>
+          <Text>Username is {this.state.username}</Text>
         </View>
         <View style={styles.form}>
-          <LogingForm loginHandler = {this.loginHandler} />
+          <View style={stylesForm.container}>
+            <TextInput
+                placeholder="username"
+              style={stylesForm.input}
+              onChange={ this.handleChange.bind(this) } 
+            />
+            <TouchableOpacity style={stylesForm.buttonContainer}>
+              <Text style={stylesForm.buttonText} onClick={this.handleLoging.bind(this)}>Login</Text>
+            </TouchableOpacity>  
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -54,3 +66,26 @@ const styles = StyleSheet.create({
 
   }
 });
+
+const stylesForm = StyleSheet.create({
+  container: {
+    padding: 20
+  },
+
+  input: {
+    height: 40,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginBottom: 80
+  },
+
+  buttonContainer: {
+    backgroundColor: '#856084',
+    paddingVertical: 20
+  },
+
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFF'
+  }
+
+})
