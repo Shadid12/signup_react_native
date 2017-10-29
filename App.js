@@ -8,6 +8,7 @@ import { StyleSheet,
          KeyboardAvoidingView } 
 from 'react-native';
 import LogingForm from './components/LoginForm';
+import BarcodeScaner from './components/BarcodeScaner';
 
 export default class App extends React.Component {
 
@@ -62,7 +63,7 @@ export default class App extends React.Component {
       return this.notLoggedin();
     }else {
       return (
-        <Text>Hello Worlds</Text>
+        <BarcodeScaner name={this.state.username}/>
       )
     }
   }
