@@ -2,24 +2,40 @@ import React from 'react';
 import { StyleSheet, 
          Text, 
          View, 
-         Image } 
+         Image,
+         KeyboardAvoidingView } 
 from 'react-native';
 import LogingForm from './components/LoginForm';
 
 export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ''
+    }
+
+    this.loginHandler = this.loginHandler.bind(this);
+  }
+
+  loginHandler(e) {
+    // console.log(e);
+    // this.setState({ username: e });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logo}>
           <Image 
             source={require('./img/box.png')}
           />
-          <Text>Login to start</Text>
+          <Text>The Username is: {this.state.username}</Text>
         </View>
         <View style={styles.form}>
-          <LogingForm />
+          <LogingForm loginHandler = {this.loginHandler} />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
