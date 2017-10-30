@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Text, 
 		 StyleSheet, 
-		 View } 
+		 View,
+		 Alert } 
 	from 'react-native';
 
 import { BarCodeScanner, Permissions } from 'expo';
@@ -44,6 +45,14 @@ export default class BarcodeScaner extends Component {
     	var address = ro4[1].split('|')[0];
     	var ro7 = data.split('R07~')[1];
     	var postal = ro7.split('|')[0];
-    	alert(address + "  " + postal);
+    	Alert.alert(
+		  'Barcode Scanned',
+		  'Send Data to Database',
+		  [
+		    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+		    {text: 'Send', onPress: () => console.log('Send Pressed')},
+		  ],
+		  { cancelable: false }
+		)
     }
 }
