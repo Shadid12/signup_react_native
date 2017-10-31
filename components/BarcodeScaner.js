@@ -4,8 +4,8 @@ import { Text,
 		 View,
 		 Alert } 
 	from 'react-native';
-
 import { BarCodeScanner, Permissions } from 'expo';
+import axios from 'axios';
 
 export default class BarcodeScaner extends Component {
 
@@ -50,7 +50,15 @@ export default class BarcodeScaner extends Component {
 		  'Send Data to Database',
 		  [
 		    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-		    {text: 'Send', onPress: () => console.log('Send Pressed')},
+		    {text: 'Send', onPress: () => {
+		    	axios.post('http://shadid12.herokuapp.com/item', {
+		    		username: this.props.name,
+		    		address:  address,
+		    		postal:  postal
+ 		    	}).then((res) => {
+ 		    		console.log(res);
+ 		    	})
+		    }},
 		  ],
 		  { cancelable: false }
 		)
